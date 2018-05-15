@@ -3,8 +3,6 @@ import { TextInput, Text, View } from 'react-native';
 
 class TextBox extends React.Component {
 
-  state = { value: '' };
-
   render() {
     return (
       <View style={styles.containerStyle}>
@@ -13,10 +11,9 @@ class TextBox extends React.Component {
           placeholder={this.props.placeholder}
           autoCorrect={false}
           onChangeText={text => {
-            this.setState({ value: text });
-            this.props.textChanged(this.state.value);
+            this.props.textChanged(text);
           }}
-          value={this.state.value}
+          value={this.props.value}
           style={styles.inputStyle}
           secureTextEntry={this.props.secure}
           keyboardType={this.props.type}

@@ -20,8 +20,6 @@ export default class AlbumList extends React.Component {
   }
 
   render() {
-    console.log(this.state);
-
     return (
         <ScrollView>
           {this.renderAlbums()}
