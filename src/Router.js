@@ -1,7 +1,7 @@
 import React from 'react';
 import { Scene, Router } from 'react-native-router-flux';
 import Login from './components/auth/Login';
-import Home from './components/Home';
+import { Home, AlbumList, TechnologyList, EmployeeList } from './components';
 
 const RouterComponent = () => (
       <Router>
@@ -11,6 +11,9 @@ const RouterComponent = () => (
           </Scene>
           <Scene key="main">
             <Scene key="home" component={Home} title="Home" />
+            <Scene key="albumList" component={AlbumList} title="Albums" />
+            <Scene key="technologyList" component={TechnologyList} title="Technology List" />
+            <Scene key="employeeList" component={EmployeeList} title="Employee List" />
           </Scene>
         </Scene>
       </Router>

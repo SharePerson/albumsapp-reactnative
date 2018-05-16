@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import AlbumDetail from './AlbumDetail';
 
-export default class AlbumList extends React.Component {
+class AlbumList extends React.Component {
 
   state = { albums: [] };
 
@@ -27,3 +27,5 @@ export default class AlbumList extends React.Component {
       );
   }
 }
+
+export { AlbumList };

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-export default class ExployeeList extends React.Component {
+class EmployeeList extends React.Component {
   render() {
     return (
       <View>
@@ -14,3 +14,5 @@ export default class ExployeeList extends React.Component {
     );
   }
 }
+
+export { EmployeeList };

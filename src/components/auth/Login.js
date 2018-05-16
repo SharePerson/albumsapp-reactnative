@@ -40,6 +40,18 @@ class Login extends React.Component {
     }
   }
 
+  renderButton() {
+    if (!this.props.loading) {
+      return (
+        <Button
+        click={this.onButtonPress.bind(this)}
+        >
+        Login
+        </Button>
+      );
+    }
+  }
+
   render() {
     return (
       <Card>
@@ -65,11 +77,7 @@ class Login extends React.Component {
         {this.renderError()}
         {this.renderSpinner()}
         <CardSection>
-          <Button
-          click={this.onButtonPress.bind(this)}
-          >
-          Login
-          </Button>
+          {this.renderButton()}
         </CardSection>
       </Card>
     );

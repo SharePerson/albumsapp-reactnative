@@ -1,19 +1,20 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import firebase from 'firebase';
+import { Actions } from 'react-native-router-flux';
 
 import { Button } from './common';
 
-export default class Home extends React.Component {
+class Home extends React.Component {
 
   render() {
     return (
       <View style={styles.homeContainer}>
         <View style={styles.boxesContainerStyle}>
+
           <TouchableOpacity
           style={styles.boxStyle}
           onPress={() => {
-              this.props.click('albums');
+              Actions.albumList();
             }
           }
           >
@@ -21,10 +22,11 @@ export default class Home extends React.Component {
               <Text>Albums</Text>
             </View>
           </TouchableOpacity>
+
           <TouchableOpacity
           style={styles.boxStyle}
           onPress={() => {
-              this.props.click('technologies');
+              Actions.technologyList();
             }
           }
           >
@@ -32,10 +34,11 @@ export default class Home extends React.Component {
               <Text>Technologies</Text>
             </View>
           </TouchableOpacity>
+
           <TouchableOpacity
           style={styles.boxStyle}
           onPress={() => {
-              this.props.click('employee-list');
+              Actions.employeeList();
             }
           }
           >
@@ -43,9 +46,11 @@ export default class Home extends React.Component {
               <Text>Employee List</Text>
             </View>
           </TouchableOpacity>
+
         </View>
+        
         <View style={styles.logoutContainer}>
-          <Button click={() => firebase.auth().signOut()}>Log Out</Button>
+          <Button>Log Out</Button>
         </View>
       </View>
     );
@@ -77,3 +82,5 @@ const styles = {
       margin: 10
     }
 };
+
+export { Home };
