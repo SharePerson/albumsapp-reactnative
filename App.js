@@ -12,6 +12,8 @@ import AlbumList from './src/components/AlbumList';
 import TechnologyList from './src/components/TechnologyList';
 import reducers from './src/reducers';
 import * as fb from './src/data-access/firebase-init';
+import Router from './src/Router';
+import EmployeeList from './src/components/EmployeeList';
 
 const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
 
@@ -42,6 +44,9 @@ export default class App extends React.Component {
               case 'technologies':
               this.setState({ screen: 'technologies' });
               break;
+              case 'employee-list':
+              this.setState({ screen: 'employee-list' });
+              break;
               default:
               this.setState({ screen: 'home' });
               break;
@@ -63,6 +68,13 @@ export default class App extends React.Component {
             <Header headerText="Technologies" />
             <TechnologyList />
           </View>
+      );
+      case 'employee-list':
+      return (
+        <View style={{ flex: 1 }}>
+          <Header headerText="Employee List" />
+          <EmployeeList />
+        </View>
       );
       default:
       break;
@@ -92,9 +104,7 @@ export default class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <View style={{ flex: 1 }}>
-          {this.renderAuthBased()}
-        </View>
+        <Router />
       </Provider>
     );
   }

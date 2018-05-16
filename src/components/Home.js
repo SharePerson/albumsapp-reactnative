@@ -32,6 +32,17 @@ export default class Home extends React.Component {
               <Text>Technologies</Text>
             </View>
           </TouchableOpacity>
+          <TouchableOpacity
+          style={styles.boxStyle}
+          onPress={() => {
+              this.props.click('employee-list');
+            }
+          }
+          >
+            <View>
+              <Text>Employee List</Text>
+            </View>
+          </TouchableOpacity>
         </View>
         <View style={styles.logoutContainer}>
           <Button click={() => firebase.auth().signOut()}>Log Out</Button>
