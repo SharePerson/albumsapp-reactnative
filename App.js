@@ -2,7 +2,8 @@ import React from 'react';
 import { View } from 'react-native';
 import firebase from 'firebase';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import ReduxThunk from 'redux-thunk';
 
 import { Header, Spinner } from './src/components/common';
 import Login from './src/components/auth/Login';
@@ -12,7 +13,7 @@ import TechnologyList from './src/components/TechnologyList';
 import reducers from './src/reducers';
 import * as fb from './src/data-access/firebase-init';
 
-const store = createStore(reducers);
+const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
 
 export default class App extends React.Component {
 

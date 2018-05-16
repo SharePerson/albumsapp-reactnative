@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Text, View } from 'react-native';
 
-import { Button, Card, CardSection, TextBox } from '../common';
-import { emailChanged, passwordChanged } from '../../actions';
+import { Button, Card, CardSection, TextBox, Spinner } from '../common';
+import { emailChanged, passwordChanged, loginUser } from '../../actions';
 
 class Login extends React.Component {
 
@@ -12,6 +13,31 @@ class Login extends React.Component {
 
   onPasswordChange(text) {
     this.props.passwordChanged(text);
+  }
+
+  onButtonPress() {
+    const { email, password } = this.props;
+    this.props.loginUser({ email, password });
+  }
+
+  renderError() {
+    if (this.props.error) {
+      return (
+        <View style={{ backgroundColor: 'white' }}>
+          <Text style={styles.errorTextStyle}>{this.props.error}</Text>
+        </View>
+      );
+    }
+  }
+
+  renderSpinner() {
+    if (this.props.loading) {
+      return (
+        <View style={{ height: 40 }}>
+          <Spinner size='small' />
+        </View>
+      );
+    }
   }
 
   render() {
@@ -36,9 +62,11 @@ class Login extends React.Component {
             secure
           />
         </CardSection>
+        {this.renderError()}
+        {this.renderSpinner()}
         <CardSection>
           <Button
-          click={() => console.log(this.props.email, ' _ ', this.props.password)}
+          click={this.onButtonPress.bind(this)}
           >
           Login
           </Button>
@@ -48,6 +76,21 @@ class Login extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({ email: state.auth.email, password: state.auth.password });
+const styles = {
+  errorTextStyle: {
+    color: 'red',
+    fontSize: 20,
+    alignSelf: 'center'
+  }
+};
 
-export default connect(mapStateToProps, { emailChanged, passwordChanged })(Login);
+const mapStateToProps = state => (
+  {
+    email: state.auth.email,
+    password: state.auth.password,
+    error: state.auth.error,
+    loading: state.auth.loading
+  }
+);
+
+export default connect(mapStateToProps, { emailChanged, passwordChanged, loginUser })(Login);
