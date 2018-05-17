@@ -53,3 +53,5 @@ export const employeeEdit = ({ uid, name, phone, shift }) => {
     });
   };
 };
+
+export const resetForm = () => ({ type: EMPLOYEE_SAVED });

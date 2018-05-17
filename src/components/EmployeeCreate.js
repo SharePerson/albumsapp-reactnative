@@ -4,7 +4,7 @@ import { Picker, Text } from 'react-native';
 import _ from 'lodash';
 
 import { Button, CardSection, Card, TextBox, Spinner } from './common';
-import { employeeUpdate, employeeSave, employeeEdit } from '../actions';
+import { employeeUpdate, employeeSave, employeeEdit, resetForm } from '../actions';
 
 class EmployeeCreate extends React.Component {
 
@@ -17,6 +17,8 @@ class EmployeeCreate extends React.Component {
       _.each(this.props.employee, (value, prop) => {
         this.props.employeeUpdate({ prop, value });
       });
+    } else {
+      this.props.resetForm();
     }
   }
 
@@ -122,5 +124,6 @@ export default connect(mapStateToProps,
   {
     employeeUpdate,
     employeeSave,
-    employeeEdit
+    employeeEdit,
+    resetForm
   })(EmployeeCreate);
