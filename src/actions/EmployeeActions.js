@@ -38,3 +38,18 @@ export const fetchEmployees = () => {
       });
   };
 };
+
+export const employeeEdit = ({ uid, name, phone, shift }) => {
+  const { currentUser } = firebase.auth();
+
+  return (dispatch) => {
+    dispatch({ type: EMPLOYE_SAVE_START });
+
+    firebase.database().ref(`/users/${currentUser.uid}/employees/${uid}`)
+    .set({ name, phone, shift })
+    .then(() => {
+      Actions.pop(); //you can also pass the scene key to pop to
+      dispatch({ type: EMPLOYEE_SAVED });
+    });
+  };
+};

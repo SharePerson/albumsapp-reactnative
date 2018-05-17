@@ -1,10 +1,11 @@
 import React from 'react';
 import _ from 'lodash';
-import { View, ListView, Text } from 'react-native';
+import { View, ListView, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
 
 import { fetchEmployees } from '../actions';
-import { Card, CardSection } from './common';
+import { CardSection, Card } from './common';
 
 class EmployeeList extends React.Component {
 
@@ -39,17 +40,19 @@ class EmployeeList extends React.Component {
 
   renderRow(employee) {
     return (
-      <Card>
-        <CardSection>
-          <Text style={styles.itemTextStyle}>{employee.name}</Text>
-        </CardSection>
-        <CardSection>
-          <Text style={styles.itemTextStyle}>{employee.phone}</Text>
-        </CardSection>
-        <CardSection>
-          <Text style={styles.itemTextStyle}>{employee.shift}</Text>
-        </CardSection>
-      </Card>
+      <TouchableOpacity onPress={() => Actions.employeeCreate({ employee })}>
+        <Card>
+          <CardSection>
+            <Text style={styles.itemTextStyle}>{employee.name}</Text>
+          </CardSection>
+          <CardSection>
+            <Text style={styles.itemTextStyle}>{employee.phone}</Text>
+          </CardSection>
+          <CardSection>
+            <Text style={styles.itemTextStyle}>{employee.shift}</Text>
+          </CardSection>
+        </Card>
+      </TouchableOpacity>
     );
   }
 

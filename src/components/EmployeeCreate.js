@@ -1,15 +1,38 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Picker, Text } from 'react-native';
+import _ from 'lodash';
 
 import { Button, CardSection, Card, TextBox, Spinner } from './common';
-import { employeeUpdate, employeeSave } from '../actions';
+import { employeeUpdate, employeeSave, employeeEdit } from '../actions';
 
 class EmployeeCreate extends React.Component {
 
-  onButtonPress() {
+  componentWillMount() {
+    if (this.props.employee) {
+      this.props = { ...this.props, ...this.props.employee };
+
+      //the following code updates the reducer with each property
+      //to maintain the state with the selected employee from EmployeeList
+      _.each(this.props.employee, (value, prop) => {
+        this.props.employeeUpdate({ prop, value });
+      });
+    }
+  }
+
+  onCreateButtonPress() {
     const { name, phone, shift } = this.props;
     this.props.employeeSave({ name, phone, shift: shift || 'Monday' });
+  }
+
+  onSaveButtonPress() {
+    const { uid, name, phone, shift } = this.props;
+    this.props.employeeEdit({ uid, name, phone, shift });
+  }
+
+  onDeleteButtonPress() {
+    const { uid } = this.props;
+    console.log('delete: ', uid);
   }
 
   renderButton() {
@@ -19,8 +42,17 @@ class EmployeeCreate extends React.Component {
       );
     }
 
+    if (this.props.uid && this.props.uid.length > 0) {
+      return (
+        <CardSection style={{ flex: 1 }}>
+          <Button click={this.onSaveButtonPress.bind(this)}>Save</Button>
+          <Button click={this.onDeleteButtonPress.bind(this)}>Delete</Button>
+        </CardSection>
+      );
+    }
+
     return (
-      <Button click={this.onButtonPress.bind(this)}>Create</Button>
+      <Button click={this.onCreateButtonPress.bind(this)}>Create</Button>
     );
   }
 
@@ -79,10 +111,16 @@ const styles = {
 };
 
 const mapStateToProps = (state) => ({
+    uid: state.employeeForm.uid,
     name: state.employeeForm.name,
     phone: state.employeeForm.phone,
     shift: state.employeeForm.shift,
     loading: state.employeeForm.loading
 });
 
-export default connect(mapStateToProps, { employeeUpdate, employeeSave })(EmployeeCreate);
+export default connect(mapStateToProps,
+  {
+    employeeUpdate,
+    employeeSave,
+    employeeEdit
+  })(EmployeeCreate);
