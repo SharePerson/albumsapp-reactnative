@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Picker, Text } from 'react-native';
 
-import { Button, CardSection, Card, TextBox } from './common';
+import { Button, CardSection, Card, TextBox, Spinner } from './common';
 import { employeeUpdate, employeeSave } from '../actions';
 
 class EmployeeCreate extends React.Component {
@@ -10,6 +10,18 @@ class EmployeeCreate extends React.Component {
   onButtonPress() {
     const { name, phone, shift } = this.props;
     this.props.employeeSave({ name, phone, shift: shift || 'Monday' });
+  }
+
+  renderButton() {
+    if (this.props.loading) {
+      return (
+        <Spinner size="small" />
+      );
+    }
+
+    return (
+      <Button click={this.onButtonPress.bind(this)}>Create</Button>
+    );
   }
 
   render() {
@@ -47,8 +59,8 @@ class EmployeeCreate extends React.Component {
             <Picker.Item label="Sunday" value="Sunday" />
           </Picker>
         </CardSection>
-        <CardSection>
-          <Button click={this.onButtonPress.bind(this)}>Create</Button>
+        <CardSection style={styles.buttonContainerStyle}>
+          {this.renderButton()}
         </CardSection>
       </Card>
     );
@@ -60,13 +72,17 @@ const styles = {
     fontSize: 18,
     paddingLeft: 20,
     color: '#808080'
+  },
+  buttonContainerStyle: {
+    minHeight: 50
   }
 };
 
 const mapStateToProps = (state) => ({
     name: state.employeeForm.name,
     phone: state.employeeForm.phone,
-    shift: state.employeeForm.shift
+    shift: state.employeeForm.shift,
+    loading: state.employeeForm.loading
 });
 
 export default connect(mapStateToProps, { employeeUpdate, employeeSave })(EmployeeCreate);

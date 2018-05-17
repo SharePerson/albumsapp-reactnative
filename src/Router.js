@@ -16,11 +16,11 @@ const RouterComponent = () => (
             <Scene key="albumList" component={AlbumList} title="Albums" />
             <Scene key="technologyList" component={TechnologyList} title="Technology List" />
             <Scene
-              key="employeeList"
-             component={EmployeeList}
-             title="Employee List"
-             rightTitle="Add"
-             onRight={() => Actions.employeeCreate()}
+               key="employeeList"
+               component={EmployeeList}
+               title="Employee List"
+               rightTitle="Add"
+               onRight={() => Actions.employeeCreate()}
             />
             <Scene key="employeeCreate" component={EmployeeCreate} title="Add Employee" />
           </Scene>
