@@ -2,13 +2,13 @@ import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
-import { Button } from './common';
+import { Button, CardSection } from './common';
 
 class Home extends React.Component {
 
   render() {
     return (
-      <View style={styles.homeContainer}>
+      <CardSection style={styles.homeContainer}>
         <View style={styles.boxesContainerStyle}>
 
           <TouchableOpacity
@@ -48,11 +48,11 @@ class Home extends React.Component {
           </TouchableOpacity>
 
         </View>
-        
-        <View style={styles.logoutContainer}>
+
+        <CardSection>
           <Button>Log Out</Button>
-        </View>
-      </View>
+        </CardSection>
+      </CardSection>
     );
   }
 }
@@ -66,9 +66,6 @@ const styles = {
       justifyContent: 'space-around',
       flexDirection: 'row',
       marginTop: 10
-    },
-    logoutContainer: {
-      height: 40
     },
     boxStyle: {
       backgroundColor: '#d9d9d9',

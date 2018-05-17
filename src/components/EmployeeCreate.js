@@ -1,10 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Picker, Text } from 'react-native';
 
-import { Button, CardSection, Card, Spinner, TextBox } from './common';
-import { employeeUpdate } from '../actions';
+import { Button, CardSection, Card, TextBox } from './common';
+import { employeeUpdate, employeeSave } from '../actions';
 
 class EmployeeCreate extends React.Component {
+
+  onButtonPress() {
+    const { name, phone, shift } = this.props;
+    this.props.employeeSave({ name, phone, shift: shift || 'Monday' });
+  }
+
   render() {
     return (
       <Card>
@@ -25,15 +32,36 @@ class EmployeeCreate extends React.Component {
           />
         </CardSection>
         <CardSection>
-
+          <Text style={styles.pickerLabelStyle}>Shift</Text>
+          <Picker
+            selectedValue={this.props.shift}
+            onValueChange={day => this.props.employeeUpdate({ prop: 'shift', value: day })}
+            style={{ flex: 1 }}
+          >
+            <Picker.Item label="Monday" value="Monday" />
+            <Picker.Item label="Tuesday" value="Tuesday" />
+            <Picker.Item label="Wednesday" value="Wednesday" />
+            <Picker.Item label="Thursday" value="Thursday" />
+            <Picker.Item label="Friday" value="Friday" />
+            <Picker.Item label="Saturday" value="Saturday" />
+            <Picker.Item label="Sunday" value="Sunday" />
+          </Picker>
         </CardSection>
         <CardSection>
-          <Button>Create</Button>
+          <Button click={this.onButtonPress.bind(this)}>Create</Button>
         </CardSection>
       </Card>
     );
   }
 }
+
+const styles = {
+  pickerLabelStyle: {
+    fontSize: 18,
+    paddingLeft: 20,
+    color: '#808080'
+  }
+};
 
 const mapStateToProps = (state) => ({
     name: state.employeeForm.name,
@@ -41,4 +69,4 @@ const mapStateToProps = (state) => ({
     shift: state.employeeForm.shift
 });
 
-export default connect(mapStateToProps, { employeeUpdate })(EmployeeCreate);
+export default connect(mapStateToProps, { employeeUpdate, employeeSave })(EmployeeCreate);
