@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Picker, Text } from 'react-native';
 import _ from 'lodash';
+import { text } from 'react-native-communications';
 
 import { Button, CardSection, Card, TextBox, Spinner } from './common';
 import { employeeUpdate, employeeSave, employeeEdit, resetForm } from '../actions';
@@ -37,6 +38,11 @@ class EmployeeCreate extends React.Component {
     console.log('delete: ', uid);
   }
 
+  onTextButtonPress() {
+    const { phone, shift } = this.props;
+    text(phone, `Your upcoming shift is on ${shift}`);
+  }
+
   renderButton() {
     if (this.props.loading) {
       return (
@@ -48,6 +54,7 @@ class EmployeeCreate extends React.Component {
       return (
         <CardSection style={{ flex: 1 }}>
           <Button click={this.onSaveButtonPress.bind(this)}>Save</Button>
+          <Button click={this.onTextButtonPress.bind(this)}>Text</Button>
           <Button click={this.onDeleteButtonPress.bind(this)}>Delete</Button>
         </CardSection>
       );
