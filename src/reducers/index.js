@@ -4,10 +4,12 @@ import LibraryReducer from './LibraryReducer';
 import SelectionReducer from './SelectionReducer';
 import AuthReducer from './AuthReducer';
 import EmployeeFormReducer from './EmployeeFormReducer';
+import EmployeeListReducer from './EmployeeListReducer';
 
 export default combineReducers({
   libraries: LibraryReducer,
   selectedLibraryId: SelectionReducer,
   auth: AuthReducer,
-  employeeForm: EmployeeFormReducer
+  employeeForm: EmployeeFormReducer,
+  employeeList: EmployeeListReducer
 });

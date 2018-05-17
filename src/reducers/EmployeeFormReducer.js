@@ -1,4 +1,9 @@
-import { EMPLOYEE_UPDATE, EMPLOYEE_SAVED, EMPLOYE_SAVE_START } from '../actions/types';
+import
+  {
+    EMPLOYEE_UPDATE,
+    EMPLOYEE_SAVED,
+    EMPLOYE_SAVE_START
+  } from '../actions/types';
 
 const INITIAL_STATE = {
   name: '', phone: '', shift: '', loading: null

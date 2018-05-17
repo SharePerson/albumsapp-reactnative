@@ -6,3 +6,4 @@ export const LOGIN_START = 'login_start';
 export const EMPLOYEE_UPDATE = 'employee_update';
 export const EMPLOYEE_SAVED = 'employee_saved';
 export const EMPLOYE_SAVE_START = 'employee_save_start';
+export const EMPLOYEE_FETCH_SUCCESS = 'employee_fetch_success';
