@@ -4,10 +4,12 @@ import { Picker, Text } from 'react-native';
 import _ from 'lodash';
 import { text } from 'react-native-communications';
 
-import { Button, CardSection, Card, TextBox, Spinner } from './common';
-import { employeeUpdate, employeeSave, employeeEdit, resetForm } from '../actions';
+import { Button, CardSection, Card, TextBox, Spinner, Confirm } from './common';
+import { employeeUpdate, employeeSave, employeeEdit, resetForm, employeeDelete } from '../actions';
 
 class EmployeeCreate extends React.Component {
+
+  state = { showModal: false };
 
   componentWillMount() {
     if (this.props.employee) {
@@ -34,13 +36,18 @@ class EmployeeCreate extends React.Component {
   }
 
   onDeleteButtonPress() {
-    const { uid } = this.props;
-    console.log('delete: ', uid);
+    this.setState({ showModal: true });
   }
 
   onTextButtonPress() {
     const { phone, shift } = this.props;
     text(phone, `Your upcoming shift is on ${shift}`);
+  }
+
+  onAccept() {
+    this.setState({ showModal: false });
+    const { uid } = this.props;
+    this.props.employeeDelete({ uid });
   }
 
   renderButton() {
@@ -55,7 +62,7 @@ class EmployeeCreate extends React.Component {
         <CardSection style={{ flex: 1 }}>
           <Button click={this.onSaveButtonPress.bind(this)}>Save</Button>
           <Button click={this.onTextButtonPress.bind(this)}>Text</Button>
-          <Button click={this.onDeleteButtonPress.bind(this)}>Delete</Button>
+          <Button click={this.onDeleteButtonPress.bind(this)}>Fire</Button>
         </CardSection>
       );
     }
@@ -103,6 +110,14 @@ class EmployeeCreate extends React.Component {
         <CardSection style={styles.buttonContainerStyle}>
           {this.renderButton()}
         </CardSection>
+
+        <Confirm
+          visible={this.state.showModal}
+          confirmCallback={() => { this.onAccept(); }}
+          closeCallback={() => { this.setState({ showModal: false }); }}
+        >
+         Are you sure you want to fire {this.props.name}?
+        </Confirm>
       </Card>
     );
   }
@@ -132,5 +147,6 @@ export default connect(mapStateToProps,
     employeeUpdate,
     employeeSave,
     employeeEdit,
-    resetForm
+    resetForm,
+    employeeDelete
   })(EmployeeCreate);

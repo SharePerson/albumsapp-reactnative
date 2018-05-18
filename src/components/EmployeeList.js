@@ -43,7 +43,7 @@ class EmployeeList extends React.Component {
       <TouchableOpacity onPress={() => Actions.employeeCreate({ employee })}>
         <Card>
           <CardSection>
-            <Text style={styles.itemTextStyle}>{employee.name}</Text>
+            <Text style={[styles.itemTextStyle, styles.titleStyle]}>{employee.name}</Text>
           </CardSection>
           <CardSection>
             <Text style={styles.itemTextStyle}>{employee.phone}</Text>
@@ -68,6 +68,10 @@ class EmployeeList extends React.Component {
 const styles = {
   itemTextStyle: {
     marginLeft: 15
+  },
+  titleStyle: {
+    fontSize: 16,
+    fontWeight: 'bold'
   }
 };
 
